@@ -1,0 +1,20 @@
+import numpy as np
+import pandas as pd 
+import matplotlib.pyplot as plt
+plt.rcParams.update({'font.size': 13})
+SMALL_SIZE = 12
+plt.rc('font', size=SMALL_SIZE)
+plt.rc('axes', titlesize=SMALL_SIZE)
+df=pd.read_csv('bubblechartsample1.csv')
+plt.figure(figsize=(20,10))
+df["Count"]*=200
+plt.scatter(x="Research_topic", y="Research_category", s="Count", data=df)
+for row in df.itertuples():
+    bbox_props = dict(boxstyle = "circle, pad = {}".format(row.Count/1000),
+                      fc = "w", ec = "b", lw = 2)
+    plt.annotate(str(int(row.Count/200)), xy = (row.Research_topic, row.Research_category),
+                 bbox = bbox_props, ha="center", va="center", zorder = 2,
+                 clip_on = True)
+plt.margins(.16)
+
+plt.show()
